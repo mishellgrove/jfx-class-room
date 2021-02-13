@@ -1,15 +1,22 @@
 package ui;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
+import model.Classroom;
 
 public class ClassroomGUI {
 
@@ -17,23 +24,39 @@ public class ClassroomGUI {
 	private TextField username;
 
 	@FXML
-	private TextField password;
+	private PasswordField password;
 
 	@FXML
-	void login(ActionEvent event) {
+	private BorderPane mainPanel;
+
+
+	@FXML
+	void login(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("account-list.fxml"));
+
+		fxmlLoader.setController(this);    	
+		Parent loginPane = fxmlLoader.load();
+		mainPanel.getChildren().clear();
+		mainPanel.setTop(loginPane);
+		
+	}
+
+	@FXML
+	void singup(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
+
+		fxmlLoader.setController(this);    	
+		Parent addUser = fxmlLoader.load();
+		mainPanel.getChildren().clear();
+		mainPanel.setTop(addUser);
 
 	}
 
 	@FXML
-	void singup(ActionEvent event) {
-
-	}
+	private TextField userNameAccount;
 
 	@FXML
-	private TextField username;
-
-	@FXML
-	private TextField password;
+	private TextField passwordAccount;
 
 	@FXML
 	private RadioButton male;
@@ -61,6 +84,12 @@ public class ClassroomGUI {
 
 	@FXML
 	private CheckBox industrial;
+	
+	private Classroom classroom;
+	
+	public ClassroomGUI(Classroom cr) {
+		classroom = cr;
+	}
 
 	@FXML
 	void browseButton(ActionEvent event) {
@@ -76,6 +105,11 @@ public class ClassroomGUI {
 	void singinButton(ActionEvent event) {
 
 	}
+	
+	
+	public void initialize() {
+    	//the method (initialize) is called several times by diferents fxml file loads 
+    }
 
 }
 
