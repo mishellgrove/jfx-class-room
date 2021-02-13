@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -47,7 +48,6 @@
             <Label prefHeight="17.0" prefWidth="65.0" text="UserName:" />
             <TextField fx:id="userNameAccount" GridPane.columnIndex="1" />
             <Label text="Password:" GridPane.rowIndex="1" />
-            <TextField fx:id="passwordAccount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Profile photo:" GridPane.rowIndex="2" />
             <Label text="Gender:" GridPane.rowIndex="3" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -75,10 +75,11 @@
             </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <TextField />
+                  <TextField fx:id="profilePhotoAccount" />
                   <Button mnemonicParsing="false" onAction="#browseButton" text="Browse" />
                </children>
             </HBox>
+            <PasswordField fx:id="passwordAccount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <HBox prefHeight="60.0" prefWidth="600.0">

@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,22 +37,31 @@ public class ClassroomGUI {
 	@FXML
 	void login(ActionEvent event) throws IOException {
 		String name = username.getText();
+		String psw = password.getText();
 		UserAccount userA = classroom.existUser(name);
-		if(userA == null) {
+		if (userA == null) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Log in incorrect");
 			alert.setHeaderText(null);
-			alert.setContentText("The username and password given are incorrect\r\n" + 
+			alert.setContentText("The username does not exist" + 
 					"");
 			alert.showAndWait();
-
-		} else {
+		}
+		else if(password.getText().equals(userA.getPassword())) {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("account-list.fxml"));
 
 			fxmlLoader.setController(this);    	
 			Parent loginPane = fxmlLoader.load();
 			mainPanel.getChildren().clear();
 			mainPanel.setTop(loginPane);
+
+		} else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Log in incorrect");
+			alert.setHeaderText(null);
+			alert.setContentText("The username and password given are incorrect\r\n" + 
+					"");
+			alert.showAndWait();
 		}
 	}
 
@@ -68,9 +78,12 @@ public class ClassroomGUI {
 
 	@FXML
 	private TextField userNameAccount;
+	
+	@FXML
+    private TextField profilePhotoAccount;
 
 	@FXML
-	private TextField passwordAccount;
+	private PasswordField passwordAccount;
 
 	@FXML
 	private RadioButton male;
@@ -112,6 +125,25 @@ public class ClassroomGUI {
 
 	@FXML
 	void createAccountButton(ActionEvent event) {
+		String usernameAccount = userNameAccount.getText();
+		String pw = passwordAccount.getText();
+		String pf = profilePhotoAccount.getText();
+		String gndr = (String) gender.getUserData();
+		String bday = (String) birthday.getUserData();
+		
+		final ToggleGroup group = new ToggleGroup();
+
+		group.selectedToggleProperty().addListener(
+		    (ObservableValue<? extends Toggle> ov, Toggle old_toggle, 
+		    Toggle new_toggle) -> {
+		        if (group.getSelectedToggle() != null) {
+		            final Image image = new Image(
+		                getClass().getResourceAsStream(
+		                group.getSelectedToggle().getUserData().toString() +
+		                ".jpg"));
+		        icon.setImage(image);
+		    }
+		});
 
 	}
 
