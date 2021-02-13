@@ -21,15 +21,15 @@ public class Classroom {
 		return users;
 	}
 
-	public UserAccount existUser(UserAccount user) {
+	public UserAccount existUser(String name) {
+		UserAccount u = null;
 		if (users.size()>1) {
 			for(int i = 0; i <= users.size(); i++) {
-				if (users.get(i).getUsername().equals(user.getUsername())) {
-					UserAccount u = users.get(i);
-					return u;
-				}
+				if (users.get(i).getUsername().equals(name)) {
+					u = users.get(i);
+				}	
 			}
 		}
-
+		return u;
 	}
 }

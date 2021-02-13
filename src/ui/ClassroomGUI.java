@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -17,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import model.Classroom;
+import model.UserAccount;
 
 public class ClassroomGUI {
 
@@ -32,13 +35,24 @@ public class ClassroomGUI {
 
 	@FXML
 	void login(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("account-list.fxml"));
+		String name = username.getText();
+		UserAccount userA = classroom.existUser(name);
+		if(userA == null) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Log in incorrect");
+			alert.setHeaderText(null);
+			alert.setContentText("The username and password given are incorrect\r\n" + 
+					"");
+			alert.showAndWait();
 
-		fxmlLoader.setController(this);    	
-		Parent loginPane = fxmlLoader.load();
-		mainPanel.getChildren().clear();
-		mainPanel.setTop(loginPane);
-		
+		} else {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("account-list.fxml"));
+
+			fxmlLoader.setController(this);    	
+			Parent loginPane = fxmlLoader.load();
+			mainPanel.getChildren().clear();
+			mainPanel.setTop(loginPane);
+		}
 	}
 
 	@FXML
@@ -110,6 +124,8 @@ public class ClassroomGUI {
 	public void initialize() {
     	//the method (initialize) is called several times by diferents fxml file loads 
     }
+	
+	
 
 }
 
